@@ -32,8 +32,8 @@ fclean: clean
 clean:
 	@make clean -C ../
 
-test: $(NAME)
+m: $(NAME)
 	@echo "$(RESET)"
 	@ruby tester.rb
 
-.PHONY: test re fclean clean
+.PHONY: m re fclean clean

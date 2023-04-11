@@ -1,14 +1,19 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    tester.rb                                          :+:      :+:    :+:    #
+#    push_swap_tester.rb                                :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/10 22:09:53 by psegura-          #+#    #+#              #
-#    Updated: 2023/04/11 00:17:42 by psegura-         ###   ########.fr        #
+#    Updated: 2023/04/11 12:53:18 by psegura-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+require_relative 'functions.rb'
+require_relative 'test_parser.rb'
+
+tester_parser()
 
 [3, 5, 100, 500].each do |x|
 	if x == 100 || x == 500
@@ -46,35 +51,7 @@
 		else
 			print "\033[1;31mKO\033[0m"
 		end
-		if x == 3 && moves_count.to_i < 3
-			puts "\033[1;32m\tOK\033[0m"
-		elsif x == 5 && moves_count.to_i <= 12
-			puts "\033[1;32m\tOK\033[0m"
-		
-		elsif x == 100 && moves_count.to_i < 700
-			puts "\033[1;32m\t5 Points!\033[0m"
-		elsif x == 100 && moves_count.to_i < 900
-			puts "\033[1;32m\t4 Points!\033[0m"
-		elsif x == 100 && moves_count.to_i < 1100
-			puts "\033[1;32m\t3 Points!\033[0m"
-		elsif x == 100 && moves_count.to_i < 1300
-			puts "\033[1;32m\t2 Points!\033[0m"
-		elsif x == 100 && moves_count.to_i < 1500
-			puts "\033[1;32m\t1 Points!\033[0m"
-		
-		elsif x == 500 && moves_count.to_i < 5500
-			puts "\033[1;32m\t5 Points!\033[0m"
-		elsif x == 500 && moves_count.to_i < 7000
-			puts "\033[1;32m\t4 Points!\033[0m"
-		elsif x == 500 && moves_count.to_i < 8500
-			puts "\033[1;32m\t3 Points!\033[0m"
-		elsif x == 500 && moves_count.to_i < 10000
-			puts "\033[1;32m\t2 Points!\033[0m"
-		elsif x == 500 && moves_count.to_i < 11500
-			puts "\033[1;32m\t1 Points!\033[0m"
-		else
-			puts "\033[1;31m\tKO\033[0m"
-		end
+		check_moves(x, moves_count)
 		system("rm -f .moves")
 	end
 end

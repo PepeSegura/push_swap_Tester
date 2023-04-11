@@ -6,7 +6,7 @@
 #    By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/10 23:55:52 by psegura-          #+#    #+#              #
-#    Updated: 2023/04/11 00:06:44 by psegura-         ###   ########.fr        #
+#    Updated: 2023/04/11 12:51:45 by psegura-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,6 @@ clean:
 
 m: $(NAME)
 	@echo "$(RESET)"
-	@ruby tester.rb
+	@ruby push_swap_tester.rb
 
 .PHONY: m re fclean clean

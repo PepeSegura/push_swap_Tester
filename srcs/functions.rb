@@ -6,12 +6,17 @@
 #    By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/11 12:20:27 by psegura-          #+#    #+#              #
-#    Updated: 2023/04/11 12:21:39 by psegura-         ###   ########.fr        #
+#    Updated: 2023/04/11 13:35:24 by psegura-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-def greet(name)
-	puts "Hello, #{name}!"
+def norminette()
+	norminette = `norminette ../ | grep Error | wc -l | tr -d ' ' | tr -d '\n'`
+	if norminette.to_i == 0
+		puts "\033[1;42mNORMINETTE OK\033[0m"
+	else
+		puts "\033[1;41mNORMINETTE KO\033[0m"
+	end
 end
 
 def check_moves(x, moves_count)

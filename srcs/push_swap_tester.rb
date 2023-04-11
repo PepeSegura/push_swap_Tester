@@ -6,15 +6,20 @@
 #    By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/10 22:09:53 by psegura-          #+#    #+#              #
-#    Updated: 2023/04/11 12:57:31 by psegura-         ###   ########.fr        #
+#    Updated: 2023/04/11 13:32:51 by psegura-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 require_relative 'functions.rb'
 require_relative 'test_parser.rb'
 
+# Check for norminette
+norminette()
+
+# Check for parse errors
 tester_parser()
 
+# Main tester
 [3, 5, 100, 500].each do |x|
 	if x == 100 || x == 500
 		puts "\033[0;36mInput size\tMoves\tChecker\tResult\033[0m"

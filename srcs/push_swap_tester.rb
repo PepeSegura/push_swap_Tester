@@ -6,7 +6,7 @@
 #    By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/10 22:09:53 by psegura-          #+#    #+#              #
-#    Updated: 2023/04/11 12:53:18 by psegura-         ###   ########.fr        #
+#    Updated: 2023/04/11 12:57:31 by psegura-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,7 @@ tester_parser()
 		moves_count = `cat .moves | wc -l | tr -d ' ' | tr '\n' '\t'`
 		print moves_count
 
-		checker_output = `cat .moves | ./checker #{var} | tr -d '\n'`
+		checker_output = `cat .moves | ./srcs/checker #{var} | tr -d '\n'`
 		if checker_output == "OK"
 			print "\033[1;32mOK\033[0m"
 		else

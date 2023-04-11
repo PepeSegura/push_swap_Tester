@@ -6,7 +6,7 @@
 #    By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/11 10:28:02 by psegura-          #+#    #+#              #
-#    Updated: 2023/04/11 12:28:35 by psegura-         ###   ########.fr        #
+#    Updated: 2023/04/11 13:01:11 by psegura-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -81,4 +81,3 @@ def	tester_parser
 	var = "+1 1 2"
 	test_parser(var)
 end
-

@@ -3,15 +3,18 @@
 #                                                         :::      ::::::::    #
 #    push_swap_tester.rb                                :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+         #
+#    By: pepe <pepe@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/10 22:09:53 by psegura-          #+#    #+#              #
-#    Updated: 2023/04/11 13:32:51 by psegura-         ###   ########.fr        #
+#    Updated: 2023/04/17 11:18:17 by pepe             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 require_relative 'functions.rb'
 require_relative 'test_parser.rb'
+
+# Check if system is Linux or Mac
+system_type = check_system()
 
 # Check for norminette
 norminette()
@@ -20,6 +23,7 @@ norminette()
 tester_parser()
 
 # Main tester
+# [3, 5, 100, 500, 2, 4, 35, 150, 542].each do |x|
 [3, 5, 100, 500].each do |x|
 	if x == 100 || x == 500
 		puts "\033[0;36mInput size\tMoves\tChecker\tResult\033[0m"
@@ -27,19 +31,13 @@ tester_parser()
 		puts "\033[0;36mInput\t\tMoves\tChecker\tResult\033[0m"
 	end
 	
-	if x == 3
-		rep = 10
-	elsif x == 5
-		rep = 20
-	else
-		rep = 50
-	end
+	rep = set_size(x)
 
 	rep.times do
 		var = (1..x).to_a.shuffle.join(' ')
-		if x == 3
+		if x == 3 || x == 2
 	  		printf "[%s]\t\t", var
-		elsif x == 100 || x == 500
+		elsif x == 35 || x == 100 || x ==  150 || x == 500 || x == 542
 			printf "%d\t\t", x
 		else
 			printf "[%s]\t", var
@@ -50,13 +48,15 @@ tester_parser()
 		moves_count = `cat .moves | wc -l | tr -d ' ' | tr '\n' '\t'`
 		print moves_count
 
-		checker_output = `cat .moves | ./srcs/checker #{var} | tr -d '\n'`
+		checker_output = `cat .moves | ./srcs/checker_#{system_type} #{var} | tr -d '\n'`
+		system("rm -f .moves")
+
 		if checker_output == "OK"
 			print "\033[1;32mOK\033[0m"
 		else
 			print "\033[1;31mKO\033[0m"
 		end
-		check_moves(x, moves_count)
-		system("rm -f .moves")
+
+		check_moves(x, moves_count, checker_output)
 	end
 end

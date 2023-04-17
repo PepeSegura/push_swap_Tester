@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    test_parser.rb                                     :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+         #
+#    By: pepe <pepe@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/11 10:28:02 by psegura-          #+#    #+#              #
-#    Updated: 2023/04/11 13:01:11 by psegura-         ###   ########.fr        #
+#    Updated: 2023/04/16 20:15:41 by pepe             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ def test_parser(var)
 	moves_count = `cat .moves | wc -l | tr -d ' ' | tr '\n' '\t'`
 	# printf "moves_count %s\n", moves_count
 	
-	checker_output = `cat .moves | ./checker #{var} 2>/dev/null | wc -l | tr -d ' ' | tr -d '\n' `
+	checker_output = `cat .moves | ./checker_Linux #{var} 2>/dev/null | wc -l | tr -d ' ' | tr -d '\n' `
 	#  printf "checker_output %s\n", checker_output
 	
 	# Print Input:
@@ -29,7 +29,7 @@ def test_parser(var)
 	if checker_output.to_i == 1
 		print "\033[1;32m%10s\033[0m" % "OK"
 	else
-	  print "\033[1;31m%10s\033[0m" % "KO"
+	  print "\033[1;90m%10s\033[0m" % "KO"
 	end
 	
 	# Print Result: 

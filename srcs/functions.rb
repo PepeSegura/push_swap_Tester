@@ -6,7 +6,7 @@
 #    By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/11 12:20:27 by psegura-          #+#    #+#              #
-#    Updated: 2023/04/18 00:50:35 by psegura-         ###   ########.fr        #
+#    Updated: 2023/04/18 00:53:46 by psegura-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -76,7 +76,7 @@ def check_system()
 	system_type = `uname -s`
 	if (system_type == "Linux\n")
 		return ("Linux")
-	else
+	elsif (system_type == "Darwin\n")
 		return ("Mac")
 	end
 end

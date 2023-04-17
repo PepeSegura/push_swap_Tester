@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    functions.rb                                       :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: pepe <pepe@student.42.fr>                  +#+  +:+       +#+         #
+#    By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/11 12:20:27 by psegura-          #+#    #+#              #
-#    Updated: 2023/04/17 11:11:54 by pepe             ###   ########.fr        #
+#    Updated: 2023/04/18 00:50:35 by psegura-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,41 +20,48 @@ def norminette()
 end
 
 def check_moves(x, moves_count, checker_output)
-	if x == 3 && moves_count.to_i < 3 && checker_output == "OK"
-		puts "\033[1;32m\tOK\033[0m"
-
-	elsif x == 5 && moves_count.to_i <= 12 && checker_output == "OK"
-		puts "\033[1;32m\tOK\033[0m"
-
-	elsif x == 100 && moves_count.to_i < 700 && checker_output == "OK"
-		puts "\033[1;32m\t5 Points!\033[0m"
-	elsif x == 100 && moves_count.to_i < 900 && checker_output == "OK"
-		puts "\033[1;32m\t4 Points!\033[0m"
-	elsif x == 100 && moves_count.to_i < 1100 && checker_output == "OK"
-		puts "\033[1;32m\t3 Points!\033[0m"
-	elsif x == 100 && moves_count.to_i < 1300 && checker_output == "OK"
-		puts "\033[1;32m\t2 Points!\033[0m"
-	elsif x == 100 && moves_count.to_i < 1500 && checker_output == "OK"
-		puts "\033[1;32m\t1 Points!\033[0m"
-
-	elsif x == 500 && moves_count.to_i < 5500 && checker_output == "OK"
-		puts "\033[1;32m\t5 Points!\033[0m"
-	elsif x == 500 && moves_count.to_i < 7000 && checker_output == "OK"
-		puts "\033[1;32m\t4 Points!\033[0m"
-	elsif x == 500 && moves_count.to_i < 8500 && checker_output == "OK"
-		puts "\033[1;32m\t3 Points!\033[0m"
-	elsif x == 500 && moves_count.to_i < 10000 && checker_output == "OK"
-		puts "\033[1;32m\t2 Points!\033[0m"
-	elsif x == 500 && moves_count.to_i < 11500 && checker_output == "OK"
-		puts "\033[1;32m\t1 Points!\033[0m"
-
-	else
-		puts "\033[1;31m\tKO\033[0m"
+	result = case x
+	when 1
+		moves_count.to_i == 0 && checker_output == "OK" ? "\tOK" : "\tKO"
+	when 2
+		moves_count.to_i <= 3 && checker_output == "OK" ? "\tOK" : "\tKO"
+	when 3
+		moves_count.to_i < 3 && checker_output == "OK" ? "\tOK" : "\tKO"
+	when 5
+		moves_count.to_i <= 12 && checker_output == "OK" ? "\tOK" : "\tKO"
+	when 100
+		case moves_count.to_i
+		when 0...700 then "\t5 Points!"
+		when 700...900 then "\t4 Points!"
+		when 900...1100 then "\t3 Points!"
+		when 1100...1300 then "\t2 Points!"
+		when 1300...1500 then "\t1 Points!"
+		else "\tKO"
+		end
+	when 500
+		case moves_count.to_i
+		when 0...5500 then "\t5 Points!"
+		when 5500...7000 then "\t4 Points!"
+		when 7000...8500 then "\t3 Points!"
+		when 8500...10000 then "\t2 Points!"
+		when 10000...11500 then "\t1 Points!"
+		else "\tKO"
+		end
+	else "\tKO"
 	end
-end
+	if result == "\tKO"
+		puts "\033[1;31m#{result}\033[0m"
+	else
+		puts "\033[1;32m#{result}\033[0m"
+	end
+  end
 
 def set_size(x)
-	if x == 3
+	if x == 1
+		return 1
+	elsif x == 2
+		return 2
+	elsif x == 3
 		return 10
 	elsif x == 5
 		return 20

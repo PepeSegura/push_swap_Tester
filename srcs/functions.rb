@@ -6,7 +6,7 @@
 #    By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/11 12:20:27 by psegura-          #+#    #+#              #
-#    Updated: 2023/04/18 00:53:46 by psegura-         ###   ########.fr        #
+#    Updated: 2023/04/21 16:06:57 by psegura-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ def check_moves(x, moves_count, checker_output)
 	when 2
 		moves_count.to_i <= 3 && checker_output == "OK" ? "\tOK" : "\tKO"
 	when 3
-		moves_count.to_i < 3 && checker_output == "OK" ? "\tOK" : "\tKO"
+		moves_count.to_i <= 3 && checker_output == "OK" ? "\tOK" : "\tKO"
 	when 5
 		moves_count.to_i <= 12 && checker_output == "OK" ? "\tOK" : "\tKO"
 	when 100

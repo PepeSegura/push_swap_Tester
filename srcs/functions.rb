@@ -6,7 +6,7 @@
 #    By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/11 12:20:27 by psegura-          #+#    #+#              #
-#    Updated: 2023/04/21 16:06:57 by psegura-         ###   ########.fr        #
+#    Updated: 2023/05/30 14:08:57 by psegura-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,12 +49,15 @@ def check_moves(x, moves_count, checker_output)
 		end
 	else "\tKO"
 	end
+	if checker_output != "OK"
+		result = "\tKO"
+	end
 	if result == "\tKO"
 		puts "\033[1;31m#{result}\033[0m"
 	else
 		puts "\033[1;32m#{result}\033[0m"
 	end
-  end
+end
 
 def set_size(x)
 	if x == 1

@@ -9,7 +9,7 @@ system_type = check_system()
 norminette()
 
 # Check for parse errors
-tester_parser()
+tester_parser(system_type)
 
 # Launch main_test
 main_tester(system_type)

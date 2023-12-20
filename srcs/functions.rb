@@ -6,7 +6,7 @@
 #    By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/11 12:20:27 by psegura-          #+#    #+#              #
-#    Updated: 2023/05/30 14:08:57 by psegura-         ###   ########.fr        #
+#    Updated: 2023/12/20 17:05:26 by psegura-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -82,4 +82,14 @@ def check_system()
 	elsif (system_type == "Darwin\n")
 		return ("Mac")
 	end
+end
+
+def all_combinations(x)
+    # Genera todas las combinaciones de números entre 1 y 3
+    combinations = (1..x).to_a.permutation.to_a
+
+    # Imprime todas las combinaciones
+    combinations.each do |combination|
+    puts combination.join(' ')
+    end
 end

@@ -1,6 +1,7 @@
 require_relative 'functions.rb'
 require_relative 'test_parser.rb'
 require_relative 'push_swap_tester.rb'
+require_relative 'check_results.rb'
 
 # Check if system is Linux or Mac
 system_type = check_system()
@@ -14,5 +15,15 @@ tester_parser(system_type)
 # Launch main_test
 main_tester(system_type)
 
+puts "\n\033[0;36mNumbers\tAverage\tLowest\tHighest\tScore\033[0m"
+
+check_results(1)
+check_results(2)
+check_results(3)
+check_results(5)
+check_results(100)
+check_results(500)
+
+system("rm -f .results")
 # fsusanna test
 # tester_fsusanna(system_type)

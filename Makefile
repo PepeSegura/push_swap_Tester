@@ -6,7 +6,7 @@
 #    By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/10 23:55:52 by psegura-          #+#    #+#              #
-#    Updated: 2023/04/17 17:02:47 by psegura-         ###   ########.fr        #
+#    Updated: 2023/12/26 23:47:07 by psegura-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,11 +25,14 @@ all: $(NAME)
 
 re: fclean all test
 
-fclean: clean
+clean_temp:
+	@rm -f .moves .results
+
+fclean: clean clean_temp
 	@make fclean -C ../
 	@rm -f $(NAME)
 
-clean:
+clean: clean_temp
 	@make clean -C ../
 
 m: $(NAME)
@@ -37,4 +40,4 @@ m: $(NAME)
 	@echo "$(RESET)"
 	@ruby srcs/main.rb
 
-.PHONY: m re fclean clean
+.PHONY: m re fclean clean clean_temp

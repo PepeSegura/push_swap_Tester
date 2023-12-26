@@ -15,7 +15,7 @@ tester_parser(system_type)
 # Launch main_test
 main_tester(system_type)
 
-puts "\n\033[0;36mNumbers\tAverage\tLowest\tHighest\tScore\033[0m"
+puts "\n\033[0;36mNumbers\tLowest\tAverage\tHighest\tScore\033[0m"
 
 check_results(1)
 check_results(2)

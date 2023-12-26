@@ -12,7 +12,7 @@ def check_results(category)
     lowest = moves_list.min
     highest = moves_list.max
   
-    print "#{category}\t#{mean}\t#{lowest}\t#{highest}"
+    print "#{category}\t#{lowest}\t#{mean}\t#{highest}"
     check_moves(category, mean, "OK")
   end
   

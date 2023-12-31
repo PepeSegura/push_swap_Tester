@@ -14,6 +14,4 @@ def check_results(category)
   
     print "#{category}\t#{lowest}\t#{mean}\t#{highest}"
     check_moves(category, mean, "OK")
-  end
-  
-  
+end

@@ -25,5 +25,6 @@ check_results(100)
 check_results(500)
 
 system("rm -f .results")
+
 # fsusanna test
-# tester_fsusanna(system_type)
+# the first combination for 100 and 500 numbers

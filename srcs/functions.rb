@@ -6,7 +6,7 @@
 #    By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/11 12:20:27 by psegura-          #+#    #+#              #
-#    Updated: 2023/12/20 17:05:26 by psegura-         ###   ########.fr        #
+#    Updated: 2023/12/31 22:35:52 by psegura-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,11 +23,9 @@ def check_moves(x, moves_count, checker_output)
 	result = case x
 	when 1
 		moves_count.to_i == 0 && checker_output == "OK" ? "\tOK" : "\tKO"
-	when 2
+	when 2, 3
 		moves_count.to_i <= 3 && checker_output == "OK" ? "\tOK" : "\tKO"
-	when 3
-		moves_count.to_i <= 3 && checker_output == "OK" ? "\tOK" : "\tKO"
-	when 5
+	when 4, 5
 		moves_count.to_i <= 12 && checker_output == "OK" ? "\tOK" : "\tKO"
 	when 100
 		case moves_count.to_i
@@ -90,6 +88,40 @@ def all_combinations(x)
 
     # Imprime todas las combinaciones
     combinations.each do |combination|
-    puts combination.join(' ')
+    # puts combination.join(' ')
     end
+end
+
+def generate_sequence(tot)
+    phi = (Math.sqrt(5) - 1) / 2 * tot
+  
+    sequence = Array.new(tot, 0)
+    result = []
+  
+    i = 0
+    nd = phi
+    loop do
+        break if i >= tot
+        rounded_value = nd.round
+  
+        if sequence[rounded_value] == 0
+            result << rounded_value
+            sequence[rounded_value] = 1
+            i += 1
+        end
+
+        nd += phi
+        nd %= tot if nd > tot
+    end
+    result
+end
+
+def generate_random_sequence(x)
+	if x == 3 || x == 2 || x == 1
+	  (1..x).to_a.shuffle
+	elsif x == 35 || x == 100 || x == 150 || x == 500
+	  (1..1000).to_a.shuffle[0, x].map { |n| n * (rand(2).zero? ? 1 : -1) }
+	else
+	  (1..x).to_a.shuffle
+	end
 end

@@ -6,9 +6,30 @@
 #    By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/11 10:28:02 by psegura-          #+#    #+#              #
-#    Updated: 2023/10/26 21:08:35 by psegura-         ###   ########.fr        #
+#    Updated: 2023/12/31 22:00:23 by psegura-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+def test_empty(system_type)
+	system("../push_swap >.moves" + " 2>.error")
+	
+	moves_count = `cat .moves | wc -l | tr -d ' ' | tr -d '\n'`
+	# printf "moves_count %s\n", moves_count.to_i
+	error_count = `cat .error | wc -l | tr -d ' ' | tr -d '\n'`
+	# printf "error_count %s\n", error_count.to_i
+	
+	checker_output = `cat .moves | ./srcs/checker_#{system_type} 2>/dev/null | wc -l | tr -d ' ' | tr -d '\n'`
+	# printf "checker_output %s\n", checker_output.to_i
+	
+	printf "[%-25s]", ""
+
+	if moves_count.to_i == 0 && error_count.to_i == 0 && checker_output.to_i == 0
+		print "\033[1;32m%10s\n\033[0m" % "OK"
+	else
+		print "\033[1;31m%10s\n\033[0m" % " \tYou don't have to print anything"
+	end
+	system("rm -f .error")
+end
 
 def test_parser(var, system_type)
 	system("../push_swap " + var + " >.moves" + " 2>.error")
@@ -55,6 +76,10 @@ def	tester_parser (system_type)
 	
 	puts "\033[0;36m%-30s%10s\033[0m" % ["Input", "Result"]
 	
+	# Test No input
+	puts "\033[0;35mNo Input\033[0m"
+	test_empty(system_type)
+
 	# Test Invalid Chars
 	puts "\033[0;35mInvalid Characters\033[0m"
 	var = "1 2a 3"

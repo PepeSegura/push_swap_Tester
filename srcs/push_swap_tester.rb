@@ -6,7 +6,7 @@
 #    By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/10 22:09:53 by psegura-          #+#    #+#              #
-#    Updated: 2023/12/20 16:22:58 by psegura-         ###   ########.fr        #
+#    Updated: 2023/12/31 22:31:54 by psegura-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ require_relative 'functions.rb'
 def main_tester(system_type)
 	file_path = '.results'
 	File.open(file_path, 'w') do |file|
-		[1, 2, 3, 5, 100, 500].each do |x|
+		[1, 2, 3, 4, 5, 100, 500].each do |x|
 			if x == 100 || x == 500
 				puts "\033[0;36mInput size\tMoves\tChecker\tResult\033[0m"
 			else
@@ -25,34 +25,65 @@ def main_tester(system_type)
 			end
 		
 			rep = set_size(x)
+			if x < 100
+				all_combinations(x).each do |combination|
+				  var = combination.join(' ')
+				  if x < 4
+				  	printf "[%s]\t\t", var
+				  else
+					printf "[%s]\t", var	
+				  end
+				  system("../push_swap " + var + " >.moves")
 		
-			rep.times do
-				var = (1..x).to_a.shuffle.join(' ')
-				if x == 3 || x == 2 || x == 1
-					var = (1..x).to_a.shuffle.join(' ')
-					printf "[%s]\t\t", var
-				elsif x == 35 || x == 100 || x ==  150 || x == 500 || x == 542
-					var = (1..1000).to_a.shuffle[0, x].map { |n| n * (rand(2).zero? ? 1 : -1) }.join(' ')
-					printf "%d\t\t", x
-				else
-					printf "[%s]\t", var
-				end
-			
-				system("../push_swap " + var + " >.moves")
-			
-				moves_count = `cat .moves | wc -l | tr -d ' ' | tr '\n' '\t'`
-				print moves_count
-				file.puts "#{x} - #{moves_count}" 
-			
-				checker_output = `cat .moves | ./srcs/checker_#{system_type} #{var} | tr -d '\n'`
-				system("rm -f .moves")
-			
-				if checker_output == "OK"
+				  moves_count = `cat .moves | wc -l | tr -d ' ' | tr '\n' '\t'`
+				  print moves_count
+				  file.puts "#{x} - #{moves_count}"
+		
+				  checker_output = `cat .moves | ./srcs/checker_#{system_type} #{var} | tr -d '\n'`
+				  system("rm -f .moves")
+		
+				  if checker_output == "OK"
 					print "\033[1;32mOK\033[0m"
-				else
+				  else
 					print "\033[1;31mKO\033[0m"
+				  end
+				  check_moves(x, moves_count, checker_output)
 				end
-				check_moves(x, moves_count, checker_output)
+			else
+				first_iteration = true
+				
+				rep.times do
+					if first_iteration
+						var = generate_sequence(x).join(' ')
+						first_iteration = false
+					else
+						var = generate_random_sequence(x).join(' ')
+					end
+				
+					if x == 3 || x == 2 || x == 1 || (x == 35 && first_iteration)
+						printf "[%s]\t\t", var
+					elsif x == 35 || x == 100 || x == 150 || x == 500
+						printf "%d\t\t", x
+					else
+						printf "[%s]\t", var
+					end
+				
+					system("../push_swap " + var + " >.moves")
+				
+					moves_count = `cat .moves | wc -l | tr -d ' ' | tr '\n' '\t'`
+					print moves_count
+					file.puts "#{x} - #{moves_count}" 
+				
+					checker_output = `cat .moves | ./srcs/checker_#{system_type} #{var} | tr -d '\n'`
+					system("rm -f .moves")
+				
+					if checker_output == "OK"
+						print "\033[1;32mOK\033[0m"
+					else
+						print "\033[1;31mKO\033[0m"
+					end
+					check_moves(x, moves_count, checker_output)
+				end
 			end
 		end
 	end

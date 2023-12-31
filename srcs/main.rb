@@ -26,5 +26,4 @@ check_results(500)
 
 system("rm -f .results")
 
-# fsusanna test
-# the first combination for 100 and 500 numbers
+# "when in doubt, do Fibonacci" by fsusanna 2024

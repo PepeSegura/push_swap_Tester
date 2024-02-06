@@ -24,6 +24,6 @@ check_results(5)
 check_results(100)
 check_results(500)
 
-system("rm -f .results")
+system("rm -f .results .exit_status")
 
 # "when in doubt, do Fibonacci" by fsusanna 2024

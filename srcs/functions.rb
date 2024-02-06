@@ -7,7 +7,7 @@ def norminette()
 	end
 end
 
-def check_moves(x, moves_count, checker_output)
+def check_moves(x, moves_count, checker_output, exit_status)
 	result = case x
 	when 1
 		moves_count.to_i == 0 && checker_output == "OK" ? "\tOK" : "\tKO"
@@ -38,7 +38,10 @@ def check_moves(x, moves_count, checker_output)
 	if checker_output != "OK"
 		result = "\tKO"
 	end
-	if result == "\tKO"
+	if exit_status.to_i == 139
+		puts "\033[1;31m\tSegmentation fault 💀\033[0m"
+		return
+	elsif result == "\tKO"
 		puts "\033[1;31m#{result}\033[0m"
 	else
 		puts "\033[1;32m#{result}\033[0m"

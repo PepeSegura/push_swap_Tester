@@ -6,12 +6,14 @@
 #    By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/11 10:28:02 by psegura-          #+#    #+#              #
-#    Updated: 2023/12/31 22:00:23 by psegura-         ###   ########.fr        #
+#    Updated: 2024/02/06 21:40:52 by psegura-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 def test_empty(system_type)
-	system("../push_swap >.moves" + " 2>.error")
+	system("$(../push_swap >.moves 2>.error) > /dev/null 2>&1; echo $? > .exit_status")
+	exit_code = `cat .exit_status | tr -d ' ' | tr -d '\n'`
+	# printf "exit_status: %s\n", exit_code
 	
 	moves_count = `cat .moves | wc -l | tr -d ' ' | tr -d '\n'`
 	# printf "moves_count %s\n", moves_count.to_i
@@ -23,56 +25,53 @@ def test_empty(system_type)
 	
 	printf "[%-25s]", ""
 
-	if moves_count.to_i == 0 && error_count.to_i == 0 && checker_output.to_i == 0
+	if exit_code.to_i == 139
+		print "\033[1;31m%10s\n\033[0m" % " \tSegmentation fault 💀"
+	elsif moves_count.to_i == 0 && error_count.to_i == 0 && checker_output.to_i == 0
 		print "\033[1;32m%10s\n\033[0m" % "OK"
 	else
 		print "\033[1;31m%10s\n\033[0m" % " \tYou don't have to print anything"
 	end
-	system("rm -f .error")
+	system("rm -f .error .moves .exit_status")
 end
 
 def test_parser(var, system_type)
-	system("../push_swap " + var + " >.moves" + " 2>.error")
+	system("$(../push_swap " + var + " >.moves 2>.error) > /dev/null 2>&1; echo $? > .exit_status")
+	exit_code = `cat .exit_status | tr -d ' ' | tr -d '\n'`
+	# printf "exit_status: [%s]\n", exit_code
+	moves_count = `cat .moves | wc -l | tr -d ' ' | tr -d '\n'`
+	# printf "moves_count [%s]\n", moves_count
+	error_count = `cat .error | wc -l | tr -d ' ' | tr -d '\n'`
+	# printf "error_count [%s]\n", error_count
 	
-	moves_count = `cat .moves | wc -l | tr -d ' ' | tr '\n' '\t'`
-	# printf "moves_count %s\n", moves_count
-	error_count = `cat .error | wc -l | tr -d ' ' | tr '\n' '\t'`
-	# printf "error_count %s\n", error_count
+	system("cat .moves | ./srcs/checker_#{system_type} #{var} > .checker_out 2> .checker_err")
+
+	checker_out = `cat .checker_out | wc -l | tr -d ' ' | tr -d '\n'`
+	# printf "checker_out [%s]\n", checker_out
+	checker_err = `cat .checker_err | wc -l | tr -d ' ' | tr -d '\n'`
+	# printf "checker_err [%s]\n", checker_err
 	
-	checker_output = `cat .moves | ./srcs/checker_#{system_type} #{var} 2>/dev/null | wc -l | tr -d ' ' | tr -d '\n' `
-	# printf "checker_output %s\n", checker_output
-	
-	# printf "sakdhaskjds %d\n", checker_output.to_i
 	# Print Input:
 	# 	Shows the input used in the tester.
 	printf "[%-25s]", var
-	
-	# Print Checker:
-	# 	OK if the input is valid.
-	# 	KO if there is a bad input.
-	# if checker_output.to_i == 1
-	# 	print "\033[1;32m%10s\033[0m" % "OK"
-	# else
-	#   print "\033[1;90m%10s\033[0m" % "KO"
-	# end
-	
+
 	# Print Result: 
 	# 	OK if the tester and your program give an error.
 	# 	OK if the tester and your program give an OK.
 	# 	KO if the tester and your program don't say the same.
-	if moves_count.to_i == 0 && error_count.to_i != 0 && checker_output.to_i == 0
+	if exit_code.to_i == 139
+		print "\033[1;31m%10s\n\033[0m" % " \tSegmentation fault 💀"
+	elsif moves_count.to_i == 0 && error_count.to_i != 0 && checker_err.to_i == 1
 		print "\033[1;32m%10s\n\033[0m" % "OK"
-	elsif moves_count.to_i > 0 && error_count.to_i == 0 && checker_output.to_i == 0
+	elsif moves_count.to_i > 0 && error_count.to_i == 0 && checker_err.to_i == 1
 		print "\033[1;31m%10s\n\033[0m" % " \tNot in STDERR"
-	elsif moves_count.to_i >= 0 && checker_output.to_i == 1
+	elsif moves_count.to_i >= 0 && checker_out.to_i == 1
 		print "\033[1;32m%10s\n\033[0m" % "OK"
-	else
-		print "\033[1;31m%10s\n\033[0m" % " \tYou must print \"Error\\n\""
 	end
-	system("rm -f .error")
+	system("rm -f .error .moves .exit_status .checker_out .checker_err")
 end
 
-def	tester_parser (system_type)
+def	tester_parser(system_type)
 	
 	puts "\033[0;36m%-30s%10s\033[0m" % ["Input", "Result"]
 	

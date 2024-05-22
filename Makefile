@@ -6,7 +6,7 @@
 #    By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/10 23:55:52 by psegura-          #+#    #+#              #
-#    Updated: 2023/12/26 23:47:07 by psegura-         ###   ########.fr        #
+#    Updated: 2024/05/23 00:33:16 by psegura-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,12 +16,10 @@ RED		=	\033[0;31m
 CYAN	=	\033[0;36m
 WHITE	=	\033[0m
 
-NAME = ../push_swap
-
-$(NAME): $(OBJS)
+all:
 	@make -C ../
-	
-all: $(NAME) 
+	@echo "$(RESET)"
+	@ruby srcs/main.rb
 
 re: fclean all test
 
@@ -35,9 +33,4 @@ fclean: clean clean_temp
 clean: clean_temp
 	@make clean -C ../
 
-m: $(NAME)
-	@make -C ../
-	@echo "$(RESET)"
-	@ruby srcs/main.rb
-
-.PHONY: m re fclean clean clean_temp
+.PHONY: re fclean clean clean_temp
